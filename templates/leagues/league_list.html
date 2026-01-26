@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Find Leagues - HomeField{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="mb-4">Find Leagues</h1>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="get" class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label">Sport</label>
+                    {{ form.sport }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Region</label>
+                    {{ form.region }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Season</label>
+                    {{ form.season }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Age Group</label>
+                    {{ form.age_group }}
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search me-2"></i>Search
+                    </button>
+                    <a href="{% url 'leagues:league_list' %}" class="btn btn-outline-secondary">
+                        Clear Filters
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        {% for league in leagues %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 league-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h5 class="card-title mb-0">{{ league.name }}</h5>
+                        {% if league.is_full %}
+                        <span class="badge bg-danger status-badge">Full</span>
+                        {% else %}
+                        <span class="badge bg-success status-badge">{{ league.spots_remaining }} spots</span>
+                        {% endif %}
+                    </div>
+
+                    <p class="text-muted small mb-2">
+                        <i class="fas fa-running me-1"></i>{{ league.sport.name }}
+                    </p>
+                    <p class="text-muted small mb-2">
+                        <i class="fas fa-calendar me-1"></i>{{ league.season }}
+                    </p>
+                    <p class="text-muted small mb-2">
+                        <i class="fas fa-map-marker-alt me-1"></i>{{ league.region }}
+                    </p>
+                    <p class="text-muted small mb-2">
+                        <i class="fas fa-users me-1"></i>{{ league.age_group }}
+                    </p>
+                    {% if league.fee > 0 %}
+                    <p class="text-muted small mb-2">
+                        <i class="fas fa-dollar-sign me-1"></i>${{ league.fee }}
+                    </p>
+                    {% endif %}
+
+                    {% if league.description %}
+                    <p class="card-text small">{{ league.description|truncatewords:20 }}</p>
+                    {% endif %}
+                </div>
+                <div class="card-footer bg-white border-0">
+                    <a href="{% url 'leagues:league_detail' league.pk %}" class="btn btn-primary w-100">
+                        View Details
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info text-center">
+                <i class="fas fa-info-circle me-2"></i>
+                No leagues found matching your criteria. Try adjusting your filters.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

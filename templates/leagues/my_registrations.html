@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}My Registrations - HomeField{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="mb-4">My Registrations</h1>
+
+    {% if registrations %}
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>Student</th>
+                    <th>League</th>
+                    <th>Sport</th>
+                    <th>Region</th>
+                    <th>Season</th>
+                    <th>Status</th>
+                    <th>Registered</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reg in registrations %}
+                <tr>
+                    <td><strong>{{ reg.student.full_name }}</strong></td>
+                    <td>
+                        <a href="{% url 'leagues:league_detail' reg.league.pk %}">
+                            {{ reg.league.name }}
+                        </a>
+                    </td>
+                    <td>{{ reg.league.sport.name }}</td>
+                    <td>{{ reg.league.region.city }}, {{ reg.league.region.state }}</td>
+                    <td>{{ reg.league.season }}</td>
+                    <td>
+                        {% if reg.status == 'confirmed' %}
+                        <span class="badge bg-success">Confirmed</span>
+                        {% elif reg.status == 'pending' %}
+                        <span class="badge bg-warning">Pending</span>
+                        {% elif reg.status == 'waitlist' %}
+                        <span class="badge bg-info">Waitlist</span>
+                        {% elif reg.status == 'cancelled' %}
+                        <span class="badge bg-secondary">Cancelled</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ reg.registered_at|date:"M d, Y" }}</td>
+                    <td>
+                        {% if reg.status != 'cancelled' %}
+                        <a href="{% url 'leagues:cancel_registration' reg.pk %}" class="btn btn-sm btn-outline-danger">
+                            Cancel
+                        </a>
+                        {% else %}
+                        <span class="text-muted">-</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-info text-center py-5">
+        <i class="fas fa-clipboard-list fa-3x mb-3"></i>
+        <h4>No Registrations Yet</h4>
+        <p class="mb-3">You haven't registered any children for leagues.</p>
+        <a href="{% url 'leagues:league_list' %}" class="btn btn-primary">
+            <i class="fas fa-search me-2"></i>Browse Leagues
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

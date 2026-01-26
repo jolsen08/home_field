@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Register for {{ league.name }} - HomeField{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'leagues:league_list' %}">Leagues</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'leagues:league_detail' league.pk %}">{{ league.name }}</a></li>
+                    <li class="breadcrumb-item active">Register</li>
+                </ol>
+            </nav>
+
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h4 class="mb-0">Register for {{ league.name }}</h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <strong>League Details:</strong><br>
+                        <i class="fas fa-running me-1"></i>{{ league.sport.name }} |
+                        <i class="fas fa-users me-1"></i>{{ league.age_group }} |
+                        <i class="fas fa-calendar me-1"></i>{{ league.season }}
+                        {% if league.fee > 0 %}
+                        | <i class="fas fa-dollar-sign me-1"></i>${{ league.fee }}
+                        {% endif %}
+                    </div>
+
+                    {% if league.is_full %}
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        This league is currently full. You will be added to the waitlist.
+                    </div>
+                    {% endif %}
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_student" class="form-label">Select Child</label>
+                            {{ form.student }}
+                            <small class="text-muted">
+                                <a href="{% url 'accounts:add_student' %}">Add a new child</a>
+                            </small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_notes" class="form-label">Notes (Optional)</label>
+                            {{ form.notes }}
+                            <small class="text-muted">Any additional information the coordinator should know.</small>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                {% if league.is_full %}
+                                <i class="fas fa-clock me-2"></i>Join Waitlist
+                                {% else %}
+                                <i class="fas fa-check me-2"></i>Confirm Registration
+                                {% endif %}
+                            </button>
+                            <a href="{% url 'leagues:league_detail' league.pk %}" class="btn btn-outline-secondary">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

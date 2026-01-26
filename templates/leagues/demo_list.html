@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}Demo: Browse Leagues - HomeField{% endblock %}
+
+{% block content %}
+<div class="bg-warning text-dark py-2">
+    <div class="container text-center">
+        <i class="fas fa-eye me-2"></i>
+        <strong>Demo Preview</strong> - This is what league browsing will look like when leagues are available in your area.
+        <a href="{% url 'accounts:register' %}" class="ms-2">Sign up now to be notified!</a>
+    </div>
+</div>
+
+<div class="container py-5">
+    <h1 class="mb-4">Browse Leagues</h1>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="get" class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">Sport</label>
+                    <select name="sport" class="form-select">
+                        <option value="">All Sports</option>
+                        {% for sport in sports %}
+                        <option value="{{ sport }}" {% if sport == sport_filter %}selected{% endif %}>{{ sport }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Location</label>
+                    <select name="location" class="form-select">
+                        <option value="">All Locations</option>
+                        {% for location in locations %}
+                        <option value="{{ location }}" {% if location == location_filter %}selected{% endif %}>{{ location }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary me-2">
+                        <i class="fas fa-search me-2"></i>Filter
+                    </button>
+                    <a href="{% url 'leagues:demo_leagues' %}" class="btn btn-outline-secondary">
+                        Clear
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        {% for league in leagues %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 league-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h5 class="card-title mb-0">{{ league.name }}</h5>
+                        <span class="badge bg-success status-badge">{{ league.spots_remaining }} spots</span>
+                    </div>
+
+                    <p class="text-muted small mb-2">
+                        <i class="fas fa-running me-1"></i>{{ league.sport }}
+                    </p>
+                    <p class="text-muted small mb-2">
+                        <i class="fas fa-map-marker-alt me-1"></i>{{ league.city }}, {{ league.state }}
+                    </p>
+                    <p class="text-muted small mb-2">
+                        <i class="fas fa-users me-1"></i>{{ league.age_group }}
+                    </p>
+                    <p class="text-muted small mb-2">
+                        <i class="fas fa-dollar-sign me-1"></i>${{ league.fee }}
+                    </p>
+
+                    <p class="card-text small">{{ league.description|truncatewords:15 }}</p>
+                </div>
+                <div class="card-footer bg-white border-0">
+                    <a href="{% url 'leagues:demo_league_detail' forloop.counter0 %}" class="btn btn-primary w-100">
+                        View Details
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info text-center">
+                <i class="fas fa-info-circle me-2"></i>
+                No leagues found matching your criteria.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="bg-light py-5">
+    <div class="container text-center">
+        <h3>Want to see leagues like these in your area?</h3>
+        <p class="text-muted mb-4">Sign up now and tell us what sports your children are interested in!</p>
+        <a href="{% url 'accounts:register' %}" class="btn btn-primary btn-lg">
+            <i class="fas fa-user-plus me-2"></i>Create Your Free Account
+        </a>
+    </div>
+</div>
+{% endblock %}

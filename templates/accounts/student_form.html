@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} - HomeField{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h4 class="mb-0">{{ title }}</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="id_first_name" class="form-label">First Name *</label>
+                                {{ form.first_name }}
+                                {% if form.first_name.errors %}
+                                <div class="text-danger small">{{ form.first_name.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="id_last_name" class="form-label">Last Name *</label>
+                                {{ form.last_name }}
+                                {% if form.last_name.errors %}
+                                <div class="text-danger small">{{ form.last_name.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="id_date_of_birth" class="form-label">Date of Birth *</label>
+                                {{ form.date_of_birth }}
+                                {% if form.date_of_birth.errors %}
+                                <div class="text-danger small">{{ form.date_of_birth.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="id_gender" class="form-label">Gender *</label>
+                                {{ form.gender }}
+                                {% if form.gender.errors %}
+                                <div class="text-danger small">{{ form.gender.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_grade_level" class="form-label">Grade Level</label>
+                            {{ form.grade_level }}
+                            <small class="text-muted">e.g., 5th Grade, Kindergarten</small>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">{{ form.sport_interests.label }}</label>
+                            <div class="row">
+                                {% for checkbox in form.sport_interests %}
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        {{ checkbox.tag }}
+                                        <label class="form-check-label" for="{{ checkbox.id_for_label }}">
+                                            {{ checkbox.choice_label }}
+                                        </label>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <small class="text-muted">Select all sports your child might be interested in.</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_medical_notes" class="form-label">Medical Notes</label>
+                            {{ form.medical_notes }}
+                            <small class="text-muted">Any allergies, conditions, or important medical information.</small>
+                        </div>
+
+                        <h6 class="mt-4 mb-3">Emergency Contact</h6>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="id_emergency_contact" class="form-label">Contact Name</label>
+                                {{ form.emergency_contact }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="id_emergency_phone" class="form-label">Contact Phone</label>
+                                {{ form.emergency_phone }}
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Save
+                            </button>
+                            {% if not student %}
+                            <button type="submit" name="add_another" class="btn btn-outline-primary">
+                                <i class="fas fa-plus me-2"></i>Save & Add Another
+                            </button>
+                            {% endif %}
+                            <a href="{% url 'accounts:profile' %}" class="btn btn-outline-secondary">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

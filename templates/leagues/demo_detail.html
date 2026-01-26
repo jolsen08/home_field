@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block title %}Demo: {{ league.name }} - HomeField{% endblock %}
+
+{% block content %}
+<div class="bg-warning text-dark py-2">
+    <div class="container text-center">
+        <i class="fas fa-eye me-2"></i>
+        <strong>Demo Preview</strong> - This is what league details and registration will look like.
+        <a href="{% url 'accounts:register' %}" class="ms-2">Sign up to be notified when leagues launch!</a>
+    </div>
+</div>
+
+<div class="container py-5">
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'leagues:demo_leagues' %}">Demo Leagues</a></li>
+            <li class="breadcrumb-item active">{{ league.name }}</li>
+        </ol>
+    </nav>
+
+    {% if league %}
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h1 class="h2 mb-0">{{ league.name }}</h1>
+                        <span class="badge bg-success fs-6">Open for Registration</span>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-sm-6">
+                            <p class="mb-2"><strong><i class="fas fa-running me-2"></i>Sport:</strong> {{ league.sport }}</p>
+                            <p class="mb-2"><strong><i class="fas fa-users me-2"></i>Age Group:</strong> {{ league.age_group }}</p>
+                            <p class="mb-2"><strong><i class="fas fa-dollar-sign me-2"></i>Fee:</strong> ${{ league.fee }}</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="mb-2"><strong><i class="fas fa-map-marker-alt me-2"></i>Location:</strong> {{ league.city }}, {{ league.state }}</p>
+                            <p class="mb-2"><strong><i class="fas fa-user-friends me-2"></i>Max Participants:</strong> {{ league.max_participants }}</p>
+                        </div>
+                    </div>
+
+                    <h5>About This League</h5>
+                    <p>{{ league.description }}</p>
+
+                    <h5>Schedule Information</h5>
+                    <p>{{ league.schedule_info }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card sticky-top" style="top: 20px;">
+                <div class="card-body">
+                    <h5 class="card-title">Registration</h5>
+
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span>Spots Available:</span>
+                            <strong>{{ league.spots_remaining }} / {{ league.max_participants }}</strong>
+                        </div>
+                        <div class="progress mt-2" style="height: 10px;">
+                            <div class="progress-bar bg-success" style="width: {% widthratio league.spots_remaining league.max_participants 100 %}%"></div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info small">
+                        <i class="fas fa-info-circle me-2"></i>
+                        This is a demo. When leagues are available, you'll be able to register your children here!
+                    </div>
+
+                    <button class="btn btn-secondary w-100 mb-2" disabled>
+                        <i class="fas fa-plus me-2"></i>Register Now
+                    </button>
+
+                    <a href="{% url 'accounts:register' %}" class="btn btn-primary w-100">
+                        <i class="fas fa-user-plus me-2"></i>Sign Up to Get Notified
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demo Registration Form Preview -->
+    <div class="card mt-4">
+        <div class="card-header bg-white">
+            <h5 class="mb-0"><i class="fas fa-eye me-2"></i>Registration Form Preview</h5>
+        </div>
+        <div class="card-body">
+            <p class="text-muted">When you register a child, you'll see a form like this:</p>
+
+            <form class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Select Child</label>
+                    <select class="form-select" disabled>
+                        <option>-- Your children will appear here --</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Notes (Optional)</label>
+                    <input type="text" class="form-control" placeholder="Any special requests or notes" disabled>
+                </div>
+                <div class="col-12">
+                    <button type="button" class="btn btn-secondary" disabled>
+                        <i class="fas fa-check me-2"></i>Confirm Registration
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-warning">
+        League not found.
+    </div>
+    {% endif %}
+</div>
+
+<div class="bg-light py-5">
+    <div class="container text-center">
+        <h3>Ready to join leagues like this?</h3>
+        <p class="text-muted mb-4">Sign up now and we'll notify you when leagues are available in your area!</p>
+        <a href="{% url 'accounts:register' %}" class="btn btn-primary btn-lg">
+            <i class="fas fa-user-plus me-2"></i>Create Your Free Account
+        </a>
+    </div>
+</div>
+{% endblock %}

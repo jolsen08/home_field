@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}HomeField - Sports Leagues for Homeschoolers{% endblock %}
+
+{% block content %}
+<section class="hero-section text-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold mb-1">Welcome to HomeField</h1>
+        <p class="fst-italic mb-4" style="opacity: 0.9;">by Parot</p>
+        <p class="lead mb-4">The premier platform connecting homeschool families with sports leagues in their community.</p>
+        {% if not user.is_authenticated %}
+        <a href="{% url 'accounts:register' %}" class="btn btn-light btn-lg">
+            <i class="fas fa-user-plus me-2"></i>Sign Up Now
+        </a>
+        {% else %}
+        <a href="{% url 'leagues:dashboard' %}" class="btn btn-light btn-lg">
+            <i class="fas fa-tachometer-alt me-2"></i>Go to Dashboard
+        </a>
+        {% endif %}
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <div class="alert alert-info border-0 shadow-sm p-4">
+                    <i class="fas fa-info-circle fa-2x mb-3"></i>
+                    <h4>Leagues Coming Soon to Your Area!</h4>
+                    <p class="mb-3">
+                        We're building homeschool sports communities across the country.
+                        Sign up now and tell us which sports your children are interested in.
+                        Once we have enough families in your area, we'll launch leagues and notify you!
+                    </p>
+                    <a href="{% url 'leagues:demo_leagues' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-eye me-2"></i>See What Leagues Will Look Like
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Available Sports</h2>
+        <div class="row g-4 justify-content-center">
+            {% for sport in sports %}
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="card text-center p-4 h-100">
+                    <div class="sport-icon mb-3">
+                        {% if sport.icon %}
+                        <i class="{{ sport.icon }}"></i>
+                        {% else %}
+                        <i class="fas fa-trophy"></i>
+                        {% endif %}
+                    </div>
+                    <h5 class="card-title mb-0">{{ sport.name }}</h5>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">Sports coming soon!</p>
+            </div>
+            {% endfor %}
+            {% if sports %}
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="card text-center p-4 h-100 border-dashed" style="border: 2px dashed #ccc; background: transparent; box-shadow: none;">
+                    <div class="sport-icon mb-3" style="color: #aaa;">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <h6 class="card-title mb-0 text-muted fst-italic">More Coming Soon...</h6>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">How It Works</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="bg-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow-sm" style="width: 80px; height: 80px;">
+                        <i class="fas fa-user-plus fa-2x text-success"></i>
+                    </div>
+                    <h4>1. Sign Up</h4>
+                    <p class="text-muted">Create your account and add your children. Tell us their ages and which sports they're interested in.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="bg-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow-sm" style="width: 80px; height: 80px;">
+                        <i class="fas fa-users fa-2x text-success"></i>
+                    </div>
+                    <h4>2. Build Community</h4>
+                    <p class="text-muted">As more families in your area sign up, we'll have enough players to form teams and leagues.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="bg-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow-sm" style="width: 80px; height: 80px;">
+                        <i class="fas fa-futbol fa-2x text-success"></i>
+                    </div>
+                    <h4>3. Play!</h4>
+                    <p class="text-muted">Once there's enough interest, we'll create leagues in your area and you'll be the first to know!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-success text-white">
+    <div class="container text-center">
+        <h2 class="mb-4">Be Part of Something New</h2>
+        <p class="lead mb-4">Help us bring organized sports to homeschool families in your community.</p>
+        {% if not user.is_authenticated %}
+        <a href="{% url 'accounts:register' %}" class="btn btn-light btn-lg">Create Your Free Account</a>
+        {% else %}
+        <a href="{% url 'accounts:add_student' %}" class="btn btn-light btn-lg">Add Your Children</a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

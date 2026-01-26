@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Cancel Registration - HomeField{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">Cancel Registration</h5>
+                </div>
+                <div class="card-body">
+                    <p>Are you sure you want to cancel the registration for:</p>
+                    <ul class="list-unstyled">
+                        <li><strong>Student:</strong> {{ registration.student.full_name }}</li>
+                        <li><strong>League:</strong> {{ registration.league.name }}</li>
+                        <li><strong>Season:</strong> {{ registration.league.season }}</li>
+                    </ul>
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        This action cannot be undone. You may need to re-register if spots are available.
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-times me-2"></i>Yes, Cancel Registration
+                            </button>
+                            <a href="{% url 'leagues:league_detail' registration.league.pk %}" class="btn btn-outline-secondary">
+                                No, Keep Registration
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+name,sport,city,state,age_group_name,age_min,age_max,fee,max_participants,schedule_info,description
+North Dallas Youth Basketball,Basketball,Dallas,TX,Junior,7,9,75.00,40,"Practices: Tuesdays & Thursdays 4-6 PM | Games: Saturdays 9 AM - 12 PM","Join our fun and competitive basketball league for young players! Focus on fundamentals, teamwork, and sportsmanship."
+Austin Soccer League,Soccer,Austin,TX,Intermediate,10,12,85.00,50,"Practices: Mondays & Wednesdays 5-7 PM | Games: Saturdays 10 AM - 1 PM","A great soccer program emphasizing skill development and team play. All skill levels welcome!"
+Houston Football,Football,Houston,TX,Junior,7,9,65.00,36,"Practices: Tuesdays 5-6:30 PM | Games: Saturdays 9-11 AM","Flag football perfect for learning the game. Emphasis on fun and fundamentals."
+Denver Youth Baseball,Baseball,Denver,CO,Intermediate,10,12,90.00,45,"Practices: Mon/Wed/Fri 4-6 PM | Games: Saturdays","Spring baseball league with experienced coaches. Equipment provided for beginners."
+Phoenix Football,Football,Phoenix,AZ,Teen,13,15,70.00,24,"Practices: Tuesdays & Thursdays 6-8 PM | Games: Saturdays 1-4 PM","Competitive flag football for teens. Focus on plays, routes, and team strategy."
+Dallas Tiny Tots Soccer,Soccer,Dallas,TX,Tiny Tots,4,6,50.00,30,"Saturdays 9-10 AM","Introduction to soccer for our youngest players! Games, drills, and lots of fun."
+Austin Tennis Academy,Tennis,Austin,TX,High School,16,18,120.00,20,"Practices: Mon/Wed 4-6 PM | Matches: Fridays","Competitive tennis program for high schoolers. Individual coaching and match play."
+San Antonio Basketball,Basketball,San Antonio,TX,Teen,13,15,80.00,32,"Practices: Tue/Thu 6-8 PM | Games: Saturdays","Competitive basketball league focusing on advanced skills and game strategy."
+Charlotte Youth Soccer,Soccer,Charlotte,NC,Junior,7,9,70.00,44,"Practices: Wednesdays 5-6:30 PM | Games: Saturdays 9 AM","Fun soccer league in the Charlotte area. Building skills and making friends!"
+Atlanta Football,Football,Atlanta,GA,Intermediate,10,12,75.00,40,"Practices: Mondays 5-7 PM | Games: Saturdays 10 AM","Exciting flag football for intermediate players. Learn plays and teamwork."
+Seattle Youth Baseball,Baseball,Seattle,WA,Junior,7,9,85.00,36,"Practices: Tue/Thu 4-5:30 PM | Games: Saturdays","Introductory baseball league. Learn to bat, field, and have fun!"
+Portland Basketball League,Basketball,Portland,OR,Intermediate,10,12,80.00,40,"Practices: Mon/Wed 5-7 PM | Games: Saturdays 11 AM","Year-round basketball development program with experienced coaches."
